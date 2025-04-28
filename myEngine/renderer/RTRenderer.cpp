@@ -7,7 +7,7 @@
 //     glm::vec3 beta = {1, 1, 1};
 //     glm::vec3 color = {0, 0, 0};
 //     size_t bounces = 32;
-//     while (bounces--)
+//     while (bounces--)  由于浮点数误差可能会导致光线进入物体内部，使得光线无法继续传播，因此需要限制光线的传播次数，防止死循环
 //     {
 //         auto hitInfo = mScene.intersect(ray);
 //         if (hitInfo.has_value())

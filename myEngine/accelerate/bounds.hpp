@@ -31,6 +31,7 @@ struct Bounds
         return (diag.x * (diag.y + diag.z) + diag.y * diag.z) * 2.f;
     }
 
+    // 获取包围盒的顶点
     glm::vec3 getCorner(size_t index) const
     {
         auto corner = b_max;
@@ -43,6 +44,7 @@ struct Bounds
         return corner;
     }
 
+    // 判断包围盒是否是一个退化的包围盒
     bool isValid() const { return b_max.x >= b_min.x && b_max.y >= b_min.y && b_max.z >= b_min.z; }
 
     glm::vec3 b_min;

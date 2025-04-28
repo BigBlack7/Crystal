@@ -10,13 +10,14 @@ struct ShapeInstance
     glm::mat4 mWorldFromObject; // world
     glm::mat4 mObjectFromWorld; // local
 
-    Bounds bounds{};
-    glm::vec3 mCenter{};
+    Bounds bounds{}; // 世界空间中的包围盒
+    glm::vec3 mCenter{}; // 包围盒的中心
 
-    void updateBounds()
+    void updateBounds() // 将对象空间中的包围盒转换到世界空间中
     {
         bounds = {};
         auto bounds_local = mShape.getBounds();
+        // 遍历8个角点，将它们转换到世界空间中，然后扩展包围盒
         for (size_t i = 0; i < 8; i++)
         {
             auto corner_local = bounds_local.getCorner(i);
@@ -115,5 +116,5 @@ private:
     std::vector<SceneBVHNode> mNodes;
     SceneBVHTreeNode *root;
     std::vector<ShapeInstance> mOrderedInstances;
-    std::vector<ShapeInstance> mInfinityInstances;
+    std::vector<ShapeInstance> mInfinityInstances; // 存储无穷大的物体
 };

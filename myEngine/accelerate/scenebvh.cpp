@@ -10,7 +10,7 @@ void SceneBVH::build(std::vector<ShapeInstance> &&instances)
 {
     root = mAllocator.allocate();
     auto temp_instances = std::move(instances);
-    for (auto &instance : temp_instances)
+    for (auto &instance : temp_instances) // 将无穷大的物体分离
     {
         if (instance.mShape.getBounds().isValid())
         {
@@ -85,6 +85,7 @@ std::optional<HitInfo> SceneBVH::intersect(const Ray &ray, float t_min, float t_
             auto instances_iter = mOrderedInstances.begin() + node.instances_index;
             for (size_t i = 0; i < node.instances_count; ++i)
             {
+                // 将世界空间中的光线转换到对象空间中，然后在对象空间进行相交测试
                 auto localRay = ray.objectFromWorld(instances_iter->mObjectFromWorld);
                 auto hitInfo = instances_iter->mShape.intersect(localRay, t_min, t_max);
                 DEBUG_LINE(ray.bounds_test_count += localRay.bounds_test_count)
@@ -103,6 +104,7 @@ std::optional<HitInfo> SceneBVH::intersect(const Ray &ray, float t_min, float t_
         }
     }
 
+    // 无穷大的物体的相交测试
     for (const auto &infinityInstance: mInfinityInstances)
     {
         auto localRay = ray.objectFromWorld(infinityInstance.mObjectFromWorld);
@@ -117,9 +119,11 @@ std::optional<HitInfo> SceneBVH::intersect(const Ray &ray, float t_min, float t_
         }
     }
 
+    // 将相交信息的交点和法向量转换到世界空间中
     if (closestInstance)
     {
         closestHitInfo->mHitPoint = closestInstance->mWorldFromObject * glm::vec4(closestHitInfo->mHitPoint, 1);
+        // 转换法线到世界坐标系下, 法线转换需要使用变换矩阵的转置逆矩阵
         closestHitInfo->mNormal = glm::normalize(glm::vec3(glm::transpose(closestInstance->mObjectFromWorld) * glm::vec4(closestHitInfo->mNormal, 0)));
         closestHitInfo->mMaterial = closestInstance->mMaterial;
     }

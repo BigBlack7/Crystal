@@ -26,3 +26,9 @@
     5. SAH: Surface Area Heuristic, 表面面积启发式, 选取cost最小的划分方式
     6. Bucket: 桶, 用于SAH的划分, 每个桶包含一个AABB, 用于存储物体的索引, 用于加速SAH的划分
 -->
+
+<!--
+    git add .
+    git commit -m "commit message"
+    git push origin main
+-->

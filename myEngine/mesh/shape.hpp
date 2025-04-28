@@ -12,5 +12,5 @@ struct Shape
         float t_min,
         float t_max) const = 0;
 
-    virtual Bounds getBounds() const { return {}; }
+    virtual Bounds getBounds() const { return {}; } // 无限大的物体默认返回一个退化的Bounds(有默认值)，获取到的Bounds定义在对象空间中
 };
