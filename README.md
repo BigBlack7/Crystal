@@ -29,6 +29,6 @@
 
 <!--
     git add .
-    git commit -m "commit message"
+    git commit -m "annotations"
     git push origin main
 -->

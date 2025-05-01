@@ -13,6 +13,7 @@ struct BSDFSample
 class Material
 {
 public:
+    // 根据观察方向采样brdf，选择brdf形状相似的pdf
     virtual std::optional<BSDFSample> sampleBSDF(const glm::vec3 &hitPoint, const glm::vec3 &viewDirection, const RNG &rng) const = 0;
     void setEmission(const glm::vec3 &emission) { mEmission = emission; }
 
