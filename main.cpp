@@ -24,8 +24,6 @@
 #include "myEngine/material/conductorMaterial.hpp"
 #include "myEngine/material/groundMaterial.hpp"
 
-#include <SFML/Graphics.hpp>
-
 int main()
 {
 
