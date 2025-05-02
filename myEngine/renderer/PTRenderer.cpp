@@ -4,11 +4,12 @@
 
 glm::vec3 PTRenderer::renderPixel(const glm::ivec3 &pixelCoord)
 {
+    // 让每个线程都有一个随机数生成器，确保线程之间不会因为共享一个随机数生成器而资源竞争，导致性能下降
     thread_local RNG rng{static_cast<size_t>(pixelCoord.x * 1000000 + pixelCoord.y + pixelCoord.z * 10000000)};
     auto ray = mCamera.generateRay(pixelCoord, {rng.uniform(), rng.uniform()});
     // 遍历路径上的每一个点
     glm::vec3 beta = {1, 1, 1}; // i=1, beta=1; i>1, beta=∏(brdf*cosθ/pdf)
-    glm::vec3 L = {0, 0, 0}; // radiance
+    glm::vec3 L = {0, 0, 0};    // radiance
     float q = 0.9f;
     while (true)
     {
@@ -24,7 +25,7 @@ glm::vec3 PTRenderer::renderPixel(const glm::ivec3 &pixelCoord)
             }
             beta /= q;
 
-            Frame frame(hitInfo->mNormal);// 构建局部坐标系
+            Frame frame(hitInfo->mNormal); // 构建局部坐标系
             glm::vec3 lightDirection;
             /* 立体角在半球上的积分为2π，pdf在半球上的积分为1
                 1. 漫反射均匀采样半球方向，故pdf为1/(2π)常数，brdf=ρ/π

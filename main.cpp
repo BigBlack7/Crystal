@@ -100,7 +100,7 @@ int main()
     PTRenderer ptRenderer{camera, scene};
     ptRenderer.render(128, "../../lover.ppm");
 
-    std::cout << "Hello, PathTracing!" << std::endl;
+    std::cout << "Hello, PBRT!" << std::endl;
 
     return 0;
 }
