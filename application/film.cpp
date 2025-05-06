@@ -19,6 +19,12 @@ void Film::save(const std::filesystem::path &fileName)
     threadPool.parallelFor(mWidth, mHeight, [&](size_t x, size_t y)
                            {
         auto pixel = getPixel(x, y);
+        if (pixel.mSampleCount == 0)
+        {
+            //在最坏情况下，所有采样点都可能为不正常的值，导致计算平均值时出现除以0的情况。
+            return;
+        }
+        
         RGB rgb(pixel.mColor / static_cast<float>(pixel.mSampleCount));// 计算平均颜色, 并进行Gamma校正
         auto index = (y * mWidth + x) * 3;
         pixelBuffer[index + 0] = static_cast<uint8_t>(rgb.mR);

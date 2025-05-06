@@ -6,7 +6,7 @@ std::optional<BSDFSample> GroundMaterial::sampleBSDF(const glm::vec3 &hitPoint, 
     glm::vec3 lightDirection = CosineSampleHemisphere({rng.uniform(), rng.uniform()});
     float pdf = CosineSampleHemispherePdf(lightDirection);
     glm::vec3 bsdf = mAlbedo / PI;
-    if (static_cast<int>(glm::floor(hitPoint.x * 8)) % 8 == 0 || static_cast<int>(glm::floor(hitPoint.z * 8)) % 8 == 0)
+    if (static_cast<int>(glm::floor(hitPoint.x * 8 + 0.5f)) % 8 == 0 || static_cast<int>(glm::floor(hitPoint.z * 8 + 0.5f)) % 8 == 0)
     {
         bsdf *= 0.1;
     }

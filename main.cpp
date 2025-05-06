@@ -27,7 +27,8 @@
 int main()
 {
 
-    Film film(196 * 4, 108 * 4);
+    // Film film(196 * 4, 108 * 4);
+    Film film(2560, 1440);
     Camera camera{film, {-10, 1.5, 0}, {0, 0, 0}, 45};
 
     Model model("../../models/dragon_871k.obj");
@@ -64,19 +65,21 @@ int main()
 
     for (int i = -3; i <= 3; i++)
     {
-        scene.addShape(sphere, new DielectricMaterial{1.f + 0.2f * (i + 3), {1, 1, 1}}, {0, 0.5f, i * 2.f}, {0.8f, 0.8f, 0.8f});
+        scene.addShape(sphere, new DielectricMaterial{1.f + 0.2f * (i + 3), {1, 1, 1}, (3.f - i) / 18.f, (3.f - i) / 6.f}, {0, 0.5f, i * 2.f}, {0.8f, 0.8f, 0.8f});
     }
     for (int i = -3; i <= 3; i++)
     {
         glm::vec3 c = RGB::GenerateHeatMap((i + 3.f) / 6.f);
-        scene.addShape(sphere, new ConductorMaterial{glm::vec3(2.f - c * 2.f), glm::vec3(2.f + c * 3.f)}, {0, 2.5f, i * 2.f}, {0.8f, 0.8f, 0.8f});
+        scene.addShape(sphere, new ConductorMaterial{glm::vec3(2.f - c * 2.f), glm::vec3(2.f + c * 3.f), (3.f - i) / 6.f, (3.f - i) / 18.f}, {0, 2.5f, i * 2.f}, {0.8f, 0.8f, 0.8f});
     }
-    scene.addShape(model, new DielectricMaterial{1.8f, RGB{128, 191, 131}}, {-5, 0.4, 1.5}, {2, 2, 2});
-    scene.addShape(model, new ConductorMaterial{{0.1, 1.2, 1.8}, {5, 2.5, 2}}, {-5, 0.4, -1.5}, {2, 2, 2});
+    scene.addShape(model, new DielectricMaterial{1.8f, RGB{128, 211, 131}, 0.1f, 0.1f}, {-5, 0.4, 1.5}, {2, 2, 2});
+    scene.addShape(model, new ConductorMaterial{{0.1, 1.2, 1.8}, {5, 2.5, 2}, 0.1f, 0.1f}, {-5, 0.4, -1.5}, {2, 2, 2});
     scene.addShape(plane, new GroundMaterial{RGB(120, 204, 157)}, {0.f, -0.5f, 0.f});
     auto *lightMaterial = new DiffuseMaterial{{1, 1, 1}};
-    lightMaterial->setEmission({0.95f, 0.95f, 1.f});
-    scene.addShape(plane, lightMaterial, {0.f, 10.f, 0.f});
+    lightMaterial->setEmission({0.95f, 0.95f, 1.f}); // 面光源光强
+    // lightMaterial->setEmission({0.95f * 5, 0.95f * 5, 1.f * 5}); // 点光源光强
+    scene.addShape(plane, lightMaterial, {0.f, 10.f, 0.f}); // 面光源
+    // scene.addShape(sphere, lightMaterial, {-2.f, 6.f, 0.f}, {2, 2, 2}); // 球光源
 
     // scene.addShape(model, new DielectricMaterial{1.6f, RGB{255, 255, 255}}, {0, 0, 1.f}, {1.5, 1.5, 1.5});
     // scene.addShape(model, new ConductorMaterial{{0.1, 1.2, 1.8}, {5, 2.5, 2}}, {0, 0, -1.f}, {1.5, 1.5, 1.5});
@@ -98,7 +101,7 @@ int main()
     // ttcRenderer.render(1, "../../ppm/ttc.ppm");
 
     PTRenderer ptRenderer{camera, scene};
-    ptRenderer.render(128, "../../lover.ppm");
+    ptRenderer.render(4096, "../../lover.ppm");
 
     std::cout << "Hello, PBRT!" << std::endl;
 

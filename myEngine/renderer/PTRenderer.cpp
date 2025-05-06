@@ -35,6 +35,13 @@ glm::vec3 PTRenderer::renderPixel(const glm::ivec3 &pixelCoord)
             if (hitInfo->mMaterial)
             {
                 glm::vec3 viewDirection = frame.localFromWorld(-ray.mDirection);
+                if (viewDirection.y == 0)
+                {
+                    // 避免除0, 如果说等于0，说明光线刚好掠过物体表面，就更改光线原点，跳出当前循环
+                    ray.mOrigin = hitInfo->mHitPoint;
+                    continue;
+                }
+
                 auto bsdf_sample = hitInfo->mMaterial->sampleBSDF(hitInfo->mHitPoint, viewDirection, rng);
                 if (!bsdf_sample.has_value())
                 {

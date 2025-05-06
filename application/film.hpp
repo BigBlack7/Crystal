@@ -25,6 +25,13 @@ public:
 
     void addSample(size_t x, size_t y, const glm::vec3 &color)
     {
+        // 在高采样和高分辨率下，可能出现黑点
+        // 如果颜色中存在 NaN 值，直接返回，不进行采样。
+        if (glm::any(glm::isnan(color)))
+        {
+            return;
+        }
+        
         // 用于向指定位置 (x, y) 的像素添加一个采样颜色。同时增加该像素的采样次数。
         mPixels[x + y * mWidth].mColor += color;
         mPixels[x + y * mWidth].mSampleCount++;
