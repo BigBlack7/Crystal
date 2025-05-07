@@ -6,9 +6,6 @@ set(CMAKE_BUILD_TYPE Release)
 include_directories(
 	SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/include
 )
-link_directories(
-	SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/lib
-)
 
 add_subdirectory(application)
 add_subdirectory(myEngine)
@@ -17,7 +14,7 @@ aux_source_directory(. SRCS)
 
 add_executable(PBRT ${SRCS})
 
-target_link_libraries(PBRT app engine sfml-graphics-s)
+target_link_libraries(PBRT app engine)
 
 add_compile_options(/wd4828)
 add_compile_options(/wd4819)

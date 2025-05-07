@@ -14,9 +14,8 @@
 #include "myEngine/postProcess/rgb.hpp"
 
 #include "myEngine/renderer/normalRenderer.hpp"
-#include "myEngine/renderer/RTRenderer.hpp"
-#include "myEngine/renderer/PTRenderer.hpp"
 #include "myEngine/renderer/debugRenderer.hpp"
+#include "myEngine/renderer/PTRenderer.hpp"
 
 #include "myEngine/material/diffuseMaterial.hpp"
 #include "myEngine/material/specularMaterial.hpp"
@@ -27,8 +26,8 @@
 int main()
 {
 
-    // Film film(196 * 4, 108 * 4);
-    Film film(2560, 1440);
+    Film film(196 * 4, 108 * 4);
+    // Film film(2560, 1440);
     Camera camera{film, {-10, 1.5, 0}, {0, 0, 0}, 45};
 
     Model model("../../models/dragon_871k.obj");
@@ -101,7 +100,7 @@ int main()
     // ttcRenderer.render(1, "../../ppm/ttc.ppm");
 
     PTRenderer ptRenderer{camera, scene};
-    ptRenderer.render(4096, "../../lover.ppm");
+    ptRenderer.render(128, "../../lover.ppm");
 
     std::cout << "Hello, PBRT!" << std::endl;
 
