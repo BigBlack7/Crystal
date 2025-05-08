@@ -15,6 +15,8 @@
 
 class Renderer
 {
+    friend class Previewer;
+
 public:
     Renderer(Camera &camera, const Scene &scene) : mCamera(camera), mScene(scene) {};
     void render(size_t spp, const std::filesystem::path &fileName);

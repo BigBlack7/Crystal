@@ -6,19 +6,19 @@
 struct Pixel
 {
     glm::vec3 mColor{0, 0, 0}; // 颜色, 物理意义上的颜色.
-    int mSampleCount{0}; // 采样次数
+    int mSampleCount{0};       // 采样次数
 };
 
 class Film
 {
 public:
     Film(size_t width, size_t height);
-    void save(const std::filesystem::path &fileName); // 保存图像
+    void save(const std::filesystem::path &fileName) const; // 保存图像
 
     size_t getWidth() const { return mWidth; }
     size_t getHeight() const { return mHeight; }
 
-    Pixel getPixel(size_t x, size_t y)
+    Pixel getPixel(size_t x, size_t y) const
     {
         return mPixels[x + y * mWidth];
     }
@@ -31,7 +31,7 @@ public:
         {
             return;
         }
-        
+
         // 用于向指定位置 (x, y) 的像素添加一个采样颜色。同时增加该像素的采样次数。
         mPixels[x + y * mWidth].mColor += color;
         mPixels[x + y * mWidth].mSampleCount++;
@@ -43,6 +43,15 @@ public:
         mPixels.clear();
         mPixels.resize(mWidth * mHeight);
     }
+
+    void setResolution(size_t width, size_t height)
+    {
+        mWidth = width;
+        mHeight = height;
+        mPixels.resize(mWidth * mHeight);
+    }
+
+    std::vector<uint8_t> generateRGBABuffer();
 
 private:
     size_t mWidth;

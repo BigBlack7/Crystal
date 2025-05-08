@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "application/film.hpp"
+#include "application/previewer.hpp"
 
 #include "myEngine/ray.hpp"
 #include "myEngine/scene.hpp"
@@ -13,8 +14,8 @@
 
 #include "myEngine/postProcess/rgb.hpp"
 
-#include "myEngine/renderer/normalRenderer.hpp"
-#include "myEngine/renderer/debugRenderer.hpp"
+// #include "myEngine/renderer/normalRenderer.hpp"
+// #include "myEngine/renderer/debugRenderer.hpp"
 #include "myEngine/renderer/PTRenderer.hpp"
 
 #include "myEngine/material/diffuseMaterial.hpp"
@@ -26,7 +27,7 @@
 int main()
 {
 
-    Film film(196 * 4, 108 * 4);
+    Film film(196 * 10, 108 * 10);
     // Film film(2560, 1440);
     Camera camera{film, {-10, 1.5, 0}, {0, 0, 0}, 45};
 
@@ -100,7 +101,11 @@ int main()
     // ttcRenderer.render(1, "../../ppm/ttc.ppm");
 
     PTRenderer ptRenderer{camera, scene};
-    ptRenderer.render(128, "../../lover.ppm");
+    Previewer previewer{ptRenderer};
+    if (previewer.preview())
+    {
+        ptRenderer.render(128, "../../lover.ppm");
+    }
 
     std::cout << "Hello, PBRT!" << std::endl;
 

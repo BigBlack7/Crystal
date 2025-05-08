@@ -8,7 +8,7 @@ Film::Film(size_t width, size_t height) : mWidth(width), mHeight(height)
     mPixels.resize(width * height); // 初始化像素数组
 }
 
-void Film::save(const std::filesystem::path &fileName)
+void Film::save(const std::filesystem::path &fileName) const
 {
     std::ofstream file(fileName, std::ios::binary); // 二进制格式打开文件
     // p3为ASCII格式，p6为二进制格式，每个通道8位，远比p3快
@@ -34,4 +34,29 @@ void Film::save(const std::filesystem::path &fileName)
 
     // 将像素数据以二进制写入文件
     file.write(reinterpret_cast<const char *>(pixelBuffer.data()), pixelBuffer.size());
+}
+
+std::vector<uint8_t> Film::generateRGBABuffer()
+{
+    std::vector<uint8_t> buffer(mWidth * mHeight * 4);
+
+    for (size_t y = 0; y < mHeight; y++)
+    {
+        for (size_t x = 0; x < mWidth; x++)
+        {
+            auto pixel = getPixel(x, y);
+            if (pixel.mSampleCount == 0)
+            {
+                continue;
+            }
+            RGB rgb(pixel.mColor / static_cast<float>(pixel.mSampleCount));
+            auto index = (y * mWidth + x) * 4;
+            buffer[index + 0] = rgb.mR;
+            buffer[index + 1] = rgb.mG;
+            buffer[index + 2] = rgb.mB;
+            buffer[index + 3] = 255;
+        }
+    }
+
+    return buffer;
 }

@@ -5,16 +5,18 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_BUILD_TYPE Release)
 include_directories(
 	SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/include
+	SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/SFML/include
 )
 
 add_subdirectory(application)
 add_subdirectory(myEngine)
+add_subdirectory(thirdParty/SFML)
 
 aux_source_directory(. SRCS)
 
 add_executable(PBRT ${SRCS})
 
-target_link_libraries(PBRT app engine)
+target_link_libraries(PBRT app engine sfml-graphics)
 
 add_compile_options(/wd4828)
 add_compile_options(/wd4819)
