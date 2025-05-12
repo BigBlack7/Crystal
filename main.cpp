@@ -12,7 +12,7 @@
 #include "myEngine/mesh/model.hpp"
 #include "myEngine/mesh/plane.hpp"
 
-#include "myEngine/postProcess/rgb.hpp"
+#include "myEngine/colorSpace/rgb.hpp"
 
 // #include "myEngine/renderer/normalRenderer.hpp"
 // #include "myEngine/renderer/debugRenderer.hpp"

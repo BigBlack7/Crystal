@@ -1,7 +1,7 @@
 #include <fstream>
 #include "film.hpp"
 #include "threadPool.hpp"
-#include "../myEngine/postProcess/rgb.hpp"
+#include "../myEngine/colorSpace/rgb.hpp"
 
 Film::Film(size_t width, size_t height) : mWidth(width), mHeight(height)
 {

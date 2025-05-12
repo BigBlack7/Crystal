@@ -1,5 +1,5 @@
 #include "debugRenderer.hpp"
-#include "../postProcess/rgb.hpp"
+#include "../colorSpace/rgb.hpp"
 
 glm::vec3 BoundsTestCountRenderer::renderPixel(const glm::ivec3 &pixelCoord)
 {

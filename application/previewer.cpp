@@ -67,8 +67,16 @@ bool Previewer::preview()
                 }
                 else if (keyReleased->scancode == sf::Keyboard::Scancode::NumpadMinus) // keypad: - 减少fps
                 {
-                    mFPS -= 1;
-                    printf("FPS: %f\n", mFPS);
+                    // 限制 mFPS 不小于 1
+                    if (mFPS > 1)
+                    {
+                        mFPS -= 1;
+                        printf("FPS: %f\n", mFPS);
+                    }
+                    else
+                    {
+                        printf("FPS cannot be less than 1\n");
+                    }
                 }
                 else if (keyReleased->scancode == sf::Keyboard::Scancode::CapsLock) // keyboard: CapsLock 切换鼠标捕获
                 {

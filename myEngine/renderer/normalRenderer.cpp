@@ -1,6 +1,6 @@
 #pragma once
 #include "normalRenderer.hpp"
-#include "../postProcess/rgb.hpp"
+#include "../colorSpace/rgb.hpp"
 
 glm::vec3 NormalRenderer::renderPixel(const glm::ivec3 &pixelCoord)
 {
