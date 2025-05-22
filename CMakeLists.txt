@@ -17,7 +17,7 @@ endif()
 set(CMAKE_BUILD_PARALLEL_LEVEL ${N})
 
 add_subdirectory(application)
-add_subdirectory(myEngine)
+add_subdirectory(core)
 add_subdirectory(thirdParty/SFML)
 
 aux_source_directory(. SRCS)

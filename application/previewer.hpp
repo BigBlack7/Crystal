@@ -1,5 +1,5 @@
 #pragma once
-#include "../myEngine/renderer/renderer.hpp"
+#include "../core/renderer/renderer.hpp"
 #include <vector>
 #include <memory>
 #include <SFML/Graphics.hpp>

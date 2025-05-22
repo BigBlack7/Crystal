@@ -3,26 +3,24 @@
 #include "application/film.hpp"
 #include "application/previewer.hpp"
 
-#include "myEngine/ray.hpp"
-#include "myEngine/scene.hpp"
+#include "core/ray.hpp"
+#include "core/scene.hpp"
 
-#include "myEngine/camera/camera.hpp"
+#include "core/camera/camera.hpp"
 
-#include "myEngine/mesh/sphere.hpp"
-#include "myEngine/mesh/model.hpp"
-#include "myEngine/mesh/plane.hpp"
+#include "core/mesh/sphere.hpp"
+#include "core/mesh/model.hpp"
+#include "core/mesh/plane.hpp"
 
-#include "myEngine/colorSpace/rgb.hpp"
+#include "core/colorSpace/rgb.hpp"
 
-// #include "myEngine/renderer/normalRenderer.hpp"
-// #include "myEngine/renderer/debugRenderer.hpp"
-#include "myEngine/renderer/PTRenderer.hpp"
+#include "core/renderer/PTRenderer.hpp"
 
-#include "myEngine/material/diffuseMaterial.hpp"
-#include "myEngine/material/specularMaterial.hpp"
-#include "myEngine/material/dielectricMaterial.hpp"
-#include "myEngine/material/conductorMaterial.hpp"
-#include "myEngine/material/groundMaterial.hpp"
+#include "core/material/diffuseMaterial.hpp"
+#include "core/material/specularMaterial.hpp"
+#include "core/material/dielectricMaterial.hpp"
+#include "core/material/conductorMaterial.hpp"
+#include "core/material/groundMaterial.hpp"
 
 int main()
 {

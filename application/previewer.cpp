@@ -1,6 +1,6 @@
 #include "previewer.hpp"
-#include "../myEngine/renderer/normalRenderer.hpp"
-#include "../myEngine/renderer/debugRenderer.hpp"
+#include "../core/renderer/normalRenderer.hpp"
+#include "../core/renderer/debugRenderer.hpp"
 #include "threadPool.hpp"
 #include <iostream>
 
